@@ -97,34 +97,24 @@ Route::get('/card', function() {
 });
 
 
-
+/* === Übung 2 erste teil 
+============================================================================================= */
 Route::get('/portfolio', function () {
     return view('u2-portfolio', [
-        'title' => 'Mein Portfolio',
-        'description' => 'Hier ist mein Portfolio mit verschiedenen Projekten.'
+        'title' => 'Portfolio',
+        'heading' => 'Mein Portfolio',
+        'content' => 'Hier findet man Projekte.'
     ]);
 });
 
 Route::get('/service', function () {
     return view('u2-service', [
         'title' => 'Service',
-        'description' => 'Hier ist Service mit verschiedenen Projekten.'
+        'heading' => 'Unsere Diensleistungen',
+        'content' => 'Wir bieten Webdesign, Hosting und mehr.'
     ]);
 });
 
 
-
-Route::get('/portfolio', function () {
-    $title = 'Portfolio';
-    $heading = 'Mein Portfolio';
-    $content = 'Hier findet man Projekte.';
-    return view('u2-portfolio', compact('title', 'heading', 'content'));
-});
-
-Route::get('/service', function () {
-    $title = 'Service';
-    $heading = 'Unsere Diensleistungen';
-    $content = 'Wir bieten Webdesign, Hosting und mehr.';
-    return view('u2-portfolio', compact('title', 'heading', 'content'));
-});
-
+/* === Übung 2 zweite teil 
+============================================================================================= */
