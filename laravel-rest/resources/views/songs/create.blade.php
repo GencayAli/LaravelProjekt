@@ -5,30 +5,36 @@
 
     <form action="/songs" method="post"> 
             @csrf
-        <p>
-            <label for="title">Title</label>
-            <input type="text" name="title" id="title" value="{{old('title')}}">
-        </p>
-        <p>
-            <label for="band">Band</label>
-            <input type="text" name="band" id="band" value="{{old('band')}}">
-        </p>
-         <p>
-            <label for="label">Label</label>
-            <select name="labels_id_ref" id="labels_id_ref">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" value="{{old('title')}}">
+            </div>
+            <div class="mb-3">
+                <label for="band">Band</label>
+                <input type="text" name="band" id="band" value="{{old('band')}}">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="mb-3">
+            <label class="form-label" for="label">Label</label>
+            <select class="form-select" name="labels_id_ref" id="label">
+               @foreach ($labels as $label)
+                   <option value="{{$label->id}}"></option>
+               @endforeach
             </select>
-        </p>
-        <button name="Submit"> Speicher</button>
+            </div>
+        </div>
+        <div>
+          <button class="btn btn succes" name="Submit"> Speicher</button>
+        </div>
     </form>
     
     {{-- Fehlerausgabe --}}
     
     @if ($errors->any())
-        <div>
+        <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li> {!! $error !!}</li>

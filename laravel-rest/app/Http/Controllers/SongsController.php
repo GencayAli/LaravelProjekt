@@ -15,11 +15,11 @@ class SongsController extends Controller
     public function index()
     {
        // $songs = Song::all();
-       $song = Song::join('labels', 'labels_id_ref', '=', 'labels.id')
+       $songs = Song::join('labels', 'labels_id_ref', '=', 'labels.id')
        ->select('songs.id', 'songs.title', 'songs.band', 'labels.name')
        ->orderBy('songs.title', 'asc')
        ->get();
-        return view('songs.index', ['songs' => $song]);
+        return view('songs.index', ['songs' => $songs]);
     }
 
     /**
@@ -58,9 +58,9 @@ class SongsController extends Controller
     {
        // $song = Song::findOrFail($id);
        $song = Song::join('labels', 'labels_id_ref', '=', 'labels.id')
-            ->select('songs.title', 'songs.band', 'songs.created_at', 'songs.updated_at', 'labels.name as label_name')
+            ->select('songs.title', 'songs.band', 'songs.created_at', 'songs.updated_at', 'labels.name')
             ->where('songs.id', '=', $id)
-            ->first();
+            ->firstOrFail();
 
              
 
@@ -77,6 +77,7 @@ class SongsController extends Controller
 
         return view( 'songs.edit', [
             'song' => $song,
+            'labels' => $labels
 
         ]);
     }
@@ -109,5 +110,7 @@ class SongsController extends Controller
     public function destroy(string $id)
     {
         $song = Song::find($id);
+        $song->delete();
+        return redirect('songs');
     }
 }

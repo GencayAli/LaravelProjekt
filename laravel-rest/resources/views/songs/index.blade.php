@@ -3,12 +3,13 @@
 @section('content')
     <h2>Übersicht</h2>
 
-    <div class="row row-cols-1  row-cols-md-3 row-cols-lg-4">
+    <div class="row row-cols-1  row-cols-md-3 row-cols-lg-4 g-4">
         @foreach ($songs as $song)
         <div class="col">
             <div class="card">
+
                 <div class="card-header">
-                <h5><a href="{{ url('/songs', ['id' => $song->id]) }}">{{ $song->title }}</a> von {{$song->band }} </h5>
+                  <h5><a href="{{ url('/songs', ['id' => $song->id]) }}">{{ $song->title }}</a> von {{$song->band }} </h5>
                 </div>
                 <div class="card">
                     <p class="card-title">

@@ -4,6 +4,7 @@
     <h2>{{ $song->title}}</h2>
     <p>
         von <b>{{ $song->band}}</b>
+        Label- <b>{{ $song->name}}</b>
     </p>
     <p>
         <small>
