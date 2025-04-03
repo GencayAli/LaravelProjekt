@@ -2,26 +2,28 @@
 @section('content')
     <h2>Song bearbeiten</h2>
 
-    <form action="/songs/{{$song->id}}" method="post">
+    <form class="row" action="/songs/{{$song->id}}" method="post">
         @csrf
         @method('PUT')
-     <p>
+     <div class="col-md-6">
         <label for="title">Title</label>
-        <input type="text" name="title" id="title">
-     </p>
-     <p>
+        <input class="form-control" type="text" name="title" id="title" value="{{$song->title}}">
+     </div >
+     <div class="mb-3">
         <label for="band">Band</label>
-        <input type="text" name="band" id="band">
-     </p>
-     <p>
+        <input class="form-control" type="text" name="band" id="band">
+     </div>
+     <div class="mb-3">
         <label for="label">Label</label>
-        <select type="text" name="labels_id_ref" id="label">
+        <select class="form-select" type="text" name="labels_id_ref" id="label">
             @foreach (lables as $label)
                 <option @if ($label->id === $song->labels_id_ref) selected @endif value="{{$label->id}}">{{$label->name}}></option>
             @endforeach
         </select>
-     </p>
-     <button name="Submit"> Änderung speichern>
-            </form>
+     </div>
+     <div class="mb-3">
+     <button class="btn btn-success" type="Submit"> Änderung speichern>
+    </div>
+ </form>
     
 @endsection

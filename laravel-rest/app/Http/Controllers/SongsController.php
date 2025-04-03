@@ -28,7 +28,7 @@ class SongsController extends Controller
     public function create()
     {
         $labels = DB::table('labels')->select('id', 'name')->get();
-        return view('songs.create', ['labels' => $label]);
+        return view('songs.create', ['labels' => $labels]);
     }
 
     /**
@@ -56,11 +56,12 @@ class SongsController extends Controller
      */
     public function show(string $id)
     {
-       // $song = Song::find($id);
+       // $song = Song::findOrFail($id);
        $song = Song::join('labels', 'labels_id_ref', '=', 'labels.id')
-             ->select('songs.title', 'songs.band', 'songs.created_at', 'labels.name')
-             ->where('songs.id', '=', $id)
-             ->first();
+            ->select('songs.title', 'songs.band', 'songs.created_at', 'songs.updated_at', 'labels.name as label_name')
+            ->where('songs.id', '=', $id)
+            ->first();
+
              
 
         return view('songs.show', compact('song'));
