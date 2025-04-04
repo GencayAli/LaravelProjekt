@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Song;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
 
 class SongsController extends Controller
 {
@@ -14,11 +13,12 @@ class SongsController extends Controller
      */
     public function index()
     {
-       // $songs = Song::all();
-       $songs = Song::join('labels', 'labels_id_ref', '=', 'labels.id')
-       ->select('songs.id', 'songs.title', 'songs.band', 'labels.name')
-       ->orderBy('songs.title', 'asc')
-       ->get();
+        // $songs = Song::all();
+        $songs = Song::join('labels', 'labels_id_ref', '=', 'labels.id')
+            ->select('songs.id', 'songs.title', 'songs.band', 'labels.name')
+            ->orderBy('songs.title', 'asc')
+            ->get();
+
         return view('songs.index', ['songs' => $songs]);
     }
 
@@ -36,16 +36,16 @@ class SongsController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'title' => 'required|min:3',
-            'band' =>  'required|min:2',
-            'labels_id_ref' => 'required',
+            'band' => 'required|min:2',
+            'labels_id_ref' => 'required'
         ]);
 
         $song = new Song();
-        $song->title = $validateData['title'];
-        $song->band = $validateData['band'];
-        $song->labels_id_ref = $validateData['labels_id_ref'];
+        $song->title = $validatedData['title'];
+        $song->band = $validatedData['band'];
+        $song->labels_id_ref = $validatedData['labels_id_ref'];
         $song->save();
 
         return redirect('/songs');
@@ -56,13 +56,11 @@ class SongsController extends Controller
      */
     public function show(string $id)
     {
-       // $song = Song::findOrFail($id);
-       $song = Song::join('labels', 'labels_id_ref', '=', 'labels.id')
+        // $song = Song::find($id);
+        $song = Song::join('labels', 'labels_id_ref', '=', 'labels.id')
             ->select('songs.title', 'songs.band', 'songs.created_at', 'songs.updated_at', 'labels.name')
             ->where('songs.id', '=', $id)
             ->firstOrFail();
-
-             
 
         return view('songs.show', compact('song'));
     }
@@ -72,36 +70,35 @@ class SongsController extends Controller
      */
     public function edit(string $id)
     {
-        $song = Song::find($id);
-        $lables = DB::table('labels')->select('id', 'name')->get();
+        $song = Song::findOrFail($id);
+        $labels = DB::table('labels')->select('id', 'name')->get();
 
-        return view( 'songs.edit', [
+        return view('songs.edit', [
             'song' => $song,
             'labels' => $labels
-
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, int $id)
     {
         $song = Song::find($id);
 
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'title' => 'required|min:3',
-            'band' =>  'required|min:2',
-            'labels_id_ref' => 'required',
+            'band' => 'required|min:2',
+            'labels_id_ref' => 'required'
         ]);
 
-        $song->title = $validateData['title'];
-        $song->band = $validateData['band'];
-        $song->labels_id_ref = $validateData['labels_id_ref'];
+        $song->title = $validatedData['title'];
+        $song->band = $validatedData['band'];
+        $song->labels_id_ref = $validatedData['labels_id_ref'];
 
         $song->save();
-        return redirect('songs');
 
+        return redirect('songs');
     }
 
     /**
