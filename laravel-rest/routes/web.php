@@ -10,5 +10,5 @@ Route::get('/', function () {
 });
 
 Route::resource('/songs', SongsController::class);
-Route::resource('/songs', LabelsController::class);
+Route::resource('/labels', LabelsController::class);
 
