@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Label extends Model
 {
-    use HasFactroy;
+    use HasFactory;
     protected $fillable = [
         'name',
     ];

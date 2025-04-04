@@ -13,11 +13,11 @@ class SongsController extends Controller
      */
     public function index()
     {
-        // $songs = Song::all();
-        $songs = Song::join('labels', 'labels_id_ref', '=', 'labels.id')
-            ->select('songs.id', 'songs.title', 'songs.band', 'labels.name')
-            ->orderBy('songs.title', 'asc')
-            ->get();
+       // $songs = Song::all();
+         $songs = Song::join('labels', 'labels_id_ref', '=', 'labels.id')
+             ->select('songs.id', 'songs.title', 'songs.band', 'labels.name')
+             ->orderBy('songs.title', 'asc')
+             ->get();
 
         return view('songs.index', ['songs' => $songs]);
     }

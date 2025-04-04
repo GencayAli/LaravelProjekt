@@ -6,7 +6,8 @@
   <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
     
     @foreach ($songs as $song)
-      <div class="col"> 
+
+    <div class="col"> 
         <div class="card">
 
           <div class="card-header">
@@ -36,8 +37,4 @@
 
   </div>
 
-  
-  
-    
-  
 @endsection
